@@ -37,17 +37,25 @@ app.use(cors({
 }))
 app.use(express.json())
 
-// ─── Routes
+// ─── Routes (avec et sans /api pour compatibilité frontend Vercel)
 app.use('/api/auth', authRoutes)
-app.use('/auth', authRoutes) // aussi sans /api pour compatibilité frontend
+app.use('/auth', authRoutes)
 app.use('/api/produits', produitRoutes)
+app.use('/produits', produitRoutes)
 app.use('/api/clients', clientRoutes)
+app.use('/clients', clientRoutes)
 app.use('/api/fournisseurs', fournisseurRoutes)
+app.use('/fournisseurs', fournisseurRoutes)
 app.use('/api/ventes', venteRoutes)
+app.use('/ventes', venteRoutes)
 app.use('/api/commandes', commandeRoutes)
+app.use('/commandes', commandeRoutes)
 app.use('/api/statistiques', statistiqueRoutes)
+app.use('/statistiques', statistiqueRoutes)
 app.use('/api/utilisateurs', utilisateurRoutes)
+app.use('/utilisateurs', utilisateurRoutes)
 app.use('/api/categories', categorieRoutes)
+app.use('/categories', categorieRoutes)
 // ─── Route test
 app.get('/', (req, res) => {
   res.json({ message: '✅ QuincaPro API fonctionne !' })

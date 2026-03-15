@@ -77,10 +77,20 @@ router.get('/', verifierToken, async (req, res) => {
     })
 
   } catch (err) {
-    console.error('Erreur statistiques:', err)
+    console.error('Erreur statistiques (tableau de bord):', err.message || err)
+    if (err.code === 'P1001') {
+      return res.status(503).json({
+        message: 'Base de données indisponible — vérifiez DATABASE_URL (ex: Railway)',
+      })
+    }
+    if (err.code === 'P2021') {
+      return res.status(503).json({
+        message: 'Table ou vue introuvable en base — exécutez les migrations Prisma',
+      })
+    }
     res.status(500).json({
-      message: 'Erreur serveur',
-      details: err.message
+      message: 'Erreur lors du chargement des données',
+      ...(process.env.NODE_ENV === 'development' && { details: err.message }),
     })
   }
 })

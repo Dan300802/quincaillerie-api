@@ -11,6 +11,11 @@ export const verifierToken = (req, res, next) => {
     return res.status(401).json({ message: 'Token manquant — accès refusé' })
   }
 
+  if (!process.env.JWT_SECRET) {
+    console.error('JWT_SECRET manquant — vérifiez les variables d\'environnement Railway')
+    return res.status(500).json({ message: 'Configuration serveur manquante' })
+  }
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.utilisateur = decoded
