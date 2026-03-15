@@ -12,6 +12,11 @@ const router = express.Router()
 router.post('/login', async (req, res) => {
   const { email, motDePasse } = req.body
 
+  if (!process.env.JWT_SECRET) {
+    console.error('JWT_SECRET manquant dans les variables d\'environnement (ex: Railway)')
+    return res.status(500).json({ message: 'Erreur serveur — configuration manquante' })
+  }
+
   try {
     // Chercher l'utilisateur
     const utilisateur = await prisma.utilisateur.findUnique({
