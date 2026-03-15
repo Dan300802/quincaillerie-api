@@ -39,6 +39,7 @@ app.use(express.json())
 
 // ─── Routes
 app.use('/api/auth', authRoutes)
+app.use('/auth', authRoutes) // aussi sans /api pour compatibilité frontend
 app.use('/api/produits', produitRoutes)
 app.use('/api/clients', clientRoutes)
 app.use('/api/fournisseurs', fournisseurRoutes)
