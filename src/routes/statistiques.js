@@ -1,10 +1,10 @@
 import express from 'express'
 import prisma from '../prisma.js'
-import { verifierToken } from '../middleware/auth.js'
 
 const router = express.Router()
 
-router.get('/', verifierToken, async (req, res) => {
+// Route statistiques publique (pas de vérification de token)
+router.get('/', async (req, res) => {
   try {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
